@@ -1,0 +1,349 @@
+.section-padding-home{
+	margin-top:-22px;
+}
+.jb-header-eng{
+	text-align: center;
+    font-size: 40px;
+    color: #5a5a58;
+}
+
+.section-padding{
+   margin-top:-18px;
+   padding-top:50px;
+   padding-bottom:50px;
+}
+
+.divider {
+	border-top: solid 1px #d3d3d3;
+	clear: both;
+	height: 1px;
+	width: 95%;
+}
+.box {
+	width: 900px;
+	height: 280px;
+	padding: 9px 30px 20px 30px;
+	border: 1px solid black;
+}
+hr {
+	border-top-style: dashed;
+	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.has-error .help-block {
+  color: red !important;
+}
+/* LINK BUTTONS */
+.lnkbtn{
+	margin-left: 10px;
+}
+/* Registration Form */
+.note
+{
+	text-align: center;
+    height: 80px;
+    background: #5a9abb !important;
+    color: #5a9abb;
+    font-weight: bold;
+    line-height: 80px;
+    padding:5px;
+}
+
+.form-content
+{
+    padding: 5%;
+    border: 1px solid #ced4da;
+    margin-bottom: 2%;
+}
+/* Table Content*/
+.table-cont{
+  /**make table can scroll**/
+  max-height: 600px;
+  width: 100% !important;
+  overflow: auto;
+  background: #ddd;
+  margin: 20px 10px;
+  box-shadow: 0 0 1px 3px #ddd;
+}
+#table-cont table tbody tr:hover{
+	background-color: #ccc;
+	color:#d18027 !important;
+}
+#table-cont > table > thead{
+	background-color:#92bed4;
+	color: #fff;
+}
+
+.table-cont > table > tbody > tr > td{
+	border:1px solid #ccc;
+}
+.panel-table .panel-body{
+  padding:0;
+}
+
+.panel-table .panel-body .table-bordered{
+  border-style: none;
+  margin:0;
+}
+
+.panel-table .panel-body .table-bordered > thead > tr > th:first-of-type {
+    text-align:center;
+    width: 100px;
+}
+
+.panel-table .panel-body .table-bordered > thead > tr > th:last-of-type,
+.panel-table .panel-body .table-bordered > tbody > tr > td:last-of-type {
+  border-right: 0px;
+}
+
+.panel-table .panel-body .table-bordered > thead > tr > th:first-of-type,
+.panel-table .panel-body .table-bordered > tbody > tr > td:first-of-type {
+  border-left: 0px;
+}
+
+.panel-table .panel-body .table-bordered > tbody > tr:first-of-type > td{
+  border-bottom: 0px;
+}
+
+.panel-table .panel-body .table-bordered > thead > tr:first-of-type > th{
+  border-top: 0px;
+}
+
+.table1 {
+    width: 140% !important;
+    max-width: 140% !important;
+    margin-bottom: 20px;
+}
+
+.table2 {
+    width: 200% !important;
+    max-width: 200% !important;
+    margin-bottom: 20px;
+}
+.table3 {
+    width: 240% !important;
+    max-width: 240% !important;
+    margin-bottom: 20px;
+}
+
+/*
+used to vertically center elements, may need modification if you're not using default sizes.
+*/
+
+
+.panel-table .panel-heading .col h3{
+ line-height: 30px;
+ height: 30px;
+}
+
+.panel-table .panel-body .table-bordered > tbody > tr > td{
+  line-height: 10px;
+}
+
+/* CV Photo  */
+#blah{
+  max-width:180px;
+  height:180px;
+  overflow: hidden;
+  border: 1px solid black;
+  border-style:dashed;
+}
+
+#editphoto{
+  max-width:180px;
+  height:180px;
+  overflow: hidden;
+  border: 1px dashedblack;
+  border-style:dashed;
+}
+input[type=file]{
+padding:5px;
+max-width:180px;
+background:#cccccc;}
+
+/* IT Skill Check */
+
+.box-sizing{
+    width: 100%;
+    border: 1px solid black;
+    padding: 10px 10px 10px 10px;
+}
+.checkbox-padding{
+	padding: 3px 3px 3px 3px !important;
+} 
+.itgrid-container {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+  grid-gap: 10px;
+  background-color: #fff;
+  padding: 10px 10px 10px 10px;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+	padding: 5px 27px 5px 27px;
+	cursor: pointer;
+	text-align: center !important;
+	background-color: #ccc !important;
+	position : static;
+}
+
+.itskillgrid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto;
+  grid-gap: 1px;
+  padding: 4px;
+}
+
+.itskillgrid-container > div { 
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+}
+/* mailCss */
+.span{
+	color:red;
+}
+.dtp{
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	
+}
+.width{
+	 width: 110%;
+}
+
+.textarea {
+  width: 138%;
+  height: 150%;
+}
+
+.bottomSpace{
+	 padding-bottom: 5%;
+}
+
+.rdoSpace{
+	padding-right:5%;
+}
+
+.mailbox
+{
+	border-style: dotted;
+	box-sizing: border-box;
+	padding-top:1%;
+}
+
+.leftPadding
+{
+	padding-left:9%;
+}
+
+/* Popup table  */
+#t1 {
+    display:block;
+    height:300px;
+    overflow:auto;
+}
+  #t2 {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}  
+
+/* mailCss */
+
+/* Grid Container */
+$BorderColor: #cccccc !global ;
+.container {
+	border: 1px solid #ccc;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	border-style: solid;
+}
+.grid-container {
+	border: 2px dashed rgba(114, 186, 94, 0.35);
+    max-height: 400px;
+	width: 102%;
+	 background: rgba(114, 186, 94, 0.05);
+	 overflow: auto;
+}
+.list {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+  	grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+  	padding-left: 0;
+ }
+.list--list-item {
+	padding-bottom: 1px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid$BorderColor; &: last-child { border-bottom : 0;
+	margin: 0;
+}
+}
+.no-result {
+	display: none;
+}
+
+/* button width */
+.btn-md{
+	width:100px !important;
+}
+
+.help-block {
+  color: red !important;
+}
+
+/******************* Pricing Table Demo - 9 *****************/
+.jf-bg{background:#fff;padding:30px 0}
+.jf-title{padding: 10px; border-radius: 10px;border: solid 1px #ddd;text-align: center;font-size: 3em;background: #ddd none repeat;}
+.jf_place{background:#fff;padding-bottom:20px;}
+.jobfairTable.green{border:solid 1px #18a288}
+.jobfairTable.orange{border:solid 1px #ee6e00}
+.jobfairTable .jobfairTable-header{position:relative;z-index:1}
+.jobfairTable .jobfairTable-header:before{content:"";width:100%;height:100%;background:#606aa3;position:absolute;}
+.jobfairTable .title{display:inline-block;padding:30px 0;color:#fff;line-height:20px;left:12px}
+.jobfairTable .title{margin:0;font-size:20px;font-weight:700;text-transform:uppercase;position:relative}
+.jobfairTable .jobfair-content{list-style:none;padding:0;margin:0 0 20px;text-align:center;clear:both}
+.jobfairTable .jobfair-content li{font-size:17px;color:#131212;line-height:40px;font-weight:500}
+.jobfairTable .jobfairTable-signup{display:block;width:80%;padding:10px 0;text-align:center;border:1px solid #606aa3;
+border-radius:40px;margin:0 auto;font-size:18px;color:#606aa3;z-index:1;text-transform:uppercase;overflow:hidden;position:relative;margin-bottom: 15px;}
+.jobfairTable .jobfairTable-signup:after,.jobfairTable .jobfairTable-signup:before{content:"";border-width:0;border-style:solid;position:absolute;z-index:-1;transition:all .7s ease 0s}
+.jobfairTable .jobfairTable-signup:before{border-color:transparent transparent transparent #606aa3;bottom:0;left:0}
+.jobfairTable .jobfairTable-signup:after{border-color:transparent #606aa3 transparent transparent;top:0;right:0}
+.jobfairTable .jobfairTable-signup:hover:after,.jobfairTable .jobfairTable-signup:hover:before{border-width:150px 262px}
+.jobfairTable.green .jobfairTable-header:before{background:#18a288}
+.jobfairTable.green .jobfairTable-header:after{background:#1abc9c} 
+.jobfairTable.green .jobfairTable-signup{border-color:#1abc9c;color:#1abc9c}
+.jobfairTable.green .jobfairTable-signup:before{border-color:transparent transparent transparent #18a288}
+.jobfairTable.green .jobfairTable-signup:after{border-color:transparent #18a288 transparent transparent}
+.jobfairTable.orange .jobfairTable-header:before{background:#ee6e00}
+.jobfairTable.orange .jobfairTable-signup{border-color:#e67e22;color:#e67e22}
+.jobfairTable.orange .jobfairTable-signup:before{border-color:transparent transparent transparent #ee6e00}
+.jobfairTable.orange .jobfairTable-signup:after{border-color:transparent #ee6e00 transparent transparent}
+.jobfairTable.purple .jobfairTable-header:before{background:#b14468}
+.jobfairTable.purple .jobfairTable-signup{border-color:#cf4d78;color:#cf4d78}
+.jobfairTable.purple .jobfairTable-signup:before{border-color:transparent transparent transparent #b14468}
+.jobfairTable.purple .jobfairTable-signup:after{border-color:transparent #b14468 transparent transparent}
+@media only screen and (max-width:767px){
+.jobfairTable .title{text-align:center}
+}
+@media only screen and (max-width:990px){.jobfairTable{margin-bottom:30px}
+}
+.mmh1 {font-size:3em;text-align: center;}
+.mmtitle {background: beige;margin-top: -15px;padding-top: 20px;}
+
+.line{
+border-bottom:5px solid;
+}
+

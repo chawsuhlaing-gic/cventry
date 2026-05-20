@@ -1,0 +1,441 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd" >
+
+<struts>
+	<constant name="struts.action.extension" value="," />
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.custom.i18n.resources" value="MessageResource" />
+	<constant name="struts.multipart.maxSize" value="1073741824" /> <!-- 1GB -->
+
+	<package name="admin" namespace="/" extends="struts-default">
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+		<interceptors>
+			<interceptor name="authentication"
+				class="mm.com.gic.ces.application.interceptor.AuthenticationInterceptor"></interceptor>
+			<interceptor-stack name="authStack">
+				<interceptor-ref name="authentication"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="authStack"></default-interceptor-ref>
+		
+		<global-results>
+			<result name="error">pagenotfound.jsp</result>
+			<result name="login" type="redirect">Login</result>
+			<result name="sessionTimeout" type="redirect">Login</result>
+		</global-results>
+
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.SQLException"></exception-mapping>
+			<exception-mapping exception="java.lang.Exception" result="error" />
+		</global-exception-mappings>
+		
+		<!-- START, Jar Moon Taug, Applicant Registration view -->		
+		<action name="registerManagement" method="registrationAdmin"
+			class="mm.com.gic.ces.application.controller.admin.RegisterManagementAction">
+			<result name="registerMangement" type="tiles">registerMangement</result>
+		</action>
+		
+		<action name="appAdmin*" method="appAdmin{1}"
+			class="mm.com.gic.ces.application.controller.admin.RegisterManagementAction">		
+			<result name="registerMangement" type="tiles">registerMangement</result>
+			<result name="applicantRemoveList" type="tiles">applicantRemove</result>
+			<result name="lstAppExcel" type="tiles">adminHomeView</result>
+			<result name="exportExcel" type="stream">
+			    <param name="contentType">application/vnd.ms-excel</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">attachment;filename*=UTF-8''${fileName}</param>
+                <param name="bufferSize">4096</param>
+			</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="CVForm*" method="CVForm{1}"
+		 class="mm.com.gic.ces.application.controller.admin.AddEditCVAction">
+		    <result name="CVFormAdd" type="tiles">applicantCV</result>
+		    <result name="CVFormEdit" type="tiles">applicantCV</result>
+		    <result name="RegisterSuccess" type="redirect">CVFormAdd</result>
+		 </action>
+		 
+		 <action name="LandingPageEdit" method="init"
+		 class="mm.com.gic.ces.application.controller.admin.HomePageEditAction">
+		    <result name="LandingPageEdit" type="tiles">landingPage</result>
+		 </action>
+		 
+		 <action name="saveLandingPage" method="saveLandingPage"
+			class="mm.com.gic.ces.application.controller.admin.HomePageEditAction">
+			<result name="success" type="redirect">LandingPageEdit</result>
+			<result name="error" type="redirect">LandingPageEdit</result>
+		</action>
+		 
+		 <action name="checkDuplicateData" method="CheckDuplicateData"
+			class="mm.com.gic.ces.application.controller.admin.AddEditCVAction">
+			      <result type="stream">
+                          <param name="contentType">text/html</param>
+                          <param name="inputName">stream</param>
+                  </result>
+		</action>
+		<!-- End, Jar Moon Taung, Applicant Registration view -->
+		
+		<!-- START, Cho Cho Lwin, exam card view -->
+		<action name="ApplicantList" method="getApplicantList"
+			class="mm.com.gic.ces.application.controller.admin.ExamCardAction">
+			<result name="success" type="tiles">examCardView</result>
+		</action>
+		<!-- END, Cho Cho Lwin, exam card view -->
+
+		<!-- Start Cho Cho Lwin, exam card, print exam card -->
+		<action name="printExamCard" method="printExcel"
+			class="mm.com.gic.ces.application.controller.admin.ExamCardAction">
+			<result name="success" type="tiles">examCardView</result>
+			<result name="error" type="tiles">examCardView</result>
+			<result name="exportExcel" type="stream">
+			    <param name="contentType">application/vnd.ms-excel</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">attachment;filename*=UTF-8''${fileName}</param>
+                <param name="bufferSize">4096</param>
+			</result>
+		</action>
+		<!-- End,Cho Cho Lwin, exam card -->
+		
+		<!-- Start, Cho Cho Lwin, Role Setting -->
+		<action name="RoleSettingPermission" method="getRoleSettingListToShow"
+			class="mm.com.gic.ces.application.controller.admin.RoleSettingAction">
+			<result name="success" type="tiles">roleSetting</result>
+		</action>
+
+		<action name="saveRoleSetting" method="saveRoleSetting"
+			class="mm.com.gic.ces.application.controller.admin.RoleSettingAction">
+			<result name="success" type="redirect">RoleSettingPermission</result>
+			<result name="error" type="redirect">RoleSettingPermission</result>
+		</action>
+
+		<action name="editRoleSetting" method="editRoleSetting"
+			class="mm.com.gic.ces.application.controller.admin.RoleSettingAction">
+			<result name="success" type="tiles">roleSetting</result>
+			<result name="error" type="redirect">RoleSettingPermission</result>
+		</action>
+
+		<action name="deleteRoleSetting" method="deleteRoleSetting"
+			class="mm.com.gic.ces.application.controller.admin.RoleSettingAction">
+			<result name="success" type="redirect">RoleSettingPermission</result>
+		</action>
+		<!-- End,Cho Cho Lwin, Role Setting -->
+		
+        <!-- Start ,Thet Ngon Tun, Export CV  -->
+		<action name="SendMail" method="sendMail"
+			class="mm.com.gic.ces.application.controller.admin.MailSendAction">
+			<result name="success" type="tiles">sendMail</result>
+			<result name="error">error.jsp</result>
+		</action> 
+		
+		<action name="mailSendAction" method="mailSendForm"
+			class="mm.com.gic.ces.application.controller.admin.MailSendAction">
+			<result name="success" type="tiles">sendMail</result>			
+		</action>		
+		
+		<action name="getApplicantListAction" method="getApplicantlist"
+			class="mm.com.gic.ces.application.controller.admin.ExportCVAction">
+			<result name="applicantList" type="tiles">getApplicantList</result>			
+		</action>
+	
+		<action name="exportCVAction" method="exportCVForm"
+			class="mm.com.gic.ces.application.controller.admin.ExportCVAction">
+			<result name="success" type="tiles">exportCV</result>
+			<result name="exportCV" type="stream">
+			    <param name="contentType">application/zip</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">attachment;filename*=UTF-8''${fileName}</param>
+                <param name="bufferSize">4096</param>
+			</result>			
+		</action>				
+		
+		<action name="checkAdminlogin" method="AdminLogin"
+			class="mm.com.gic.ces.application.controller.admin.LoginAction">
+			<result name="success" type="redirect">registerManagement</result>
+			<result name="failure" type="redirect">Login</result>
+		</action>
+
+		<action name="Login" method="Login"
+			class="mm.com.gic.ces.application.controller.admin.LoginAction">
+			<result name="login">views/Login.jsp</result>
+			<result name="error">error.jsp</result>			
+		</action>
+
+		<action name="logoutAction" method="logout"
+			class="mm.com.gic.ces.application.controller.admin.LoginAction">			
+			<result name="logout" type="redirect">Login</result>
+			<result name="failure" type="redirect">Login</result>
+			
+		</action>
+		<!-- Thet Ngon Tun, -->
+		
+		<!-- Start, Saw Yu Nwe,CompanyRegistration -->
+		<action name="CompanyRegistration" method="getCompanyList"
+			class="mm.com.gic.ces.application.controller.admin.CompanyRegistrationAction">
+			<result name="companyList" type="tiles">companyReg</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+	    <action name="SaveCompany" method="saveCompanyInfo"
+			class="mm.com.gic.ces.application.controller.admin.CompanyRegistrationAction">
+			<result name="success" type="redirect">CompanyRegistration</result>
+			<result name="error">error.jsp</result>
+		</action> 
+		
+		 <action name="EditCompany" method="editCompany"
+			class="mm.com.gic.ces.application.controller.admin.CompanyRegistrationAction">
+			<result name="success" type="tiles">companyReg</result>
+			<result name="error">error.jsp</result>
+		</action> 
+		
+		<action name="DeleteCompany" method="deleteCompany"
+			class="mm.com.gic.ces.application.controller.admin.CompanyRegistrationAction">
+			<result name="success" type="redirect">CompanyRegistration</result>
+		</action>
+
+		<action name="paginateCompanyList" method="paginateCompanyList"
+			class="mm.com.gic.ces.application.controller.admin.CompanyRegistrationAction">
+			<result name="success" type="tiles">companyReg</result>
+		</action>
+		<!-- End,Saw Yu Nwe, CompanyRegistration -->
+		
+		<!-- Start, Saw Yu Nwe, ExamineeRegistration -->
+		<action name="ExamineeRegistration" method="getApplicantList"
+			class="mm.com.gic.ces.application.controller.admin.ExamineeRegistrationAction">
+			<result name="success" type="tiles">examineeReg</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+	  <action name="InsertExaminee" method="insertExamineeInfo"
+			class="mm.com.gic.ces.application.controller.admin.ExamineeRegistrationAction">
+			<result name="success" type="tiles">examineeReg</result>
+			<result name="error">error.jsp</result>
+		</action> 
+		
+		 <action name="Search" method="searchApplicant"
+			class="mm.com.gic.ces.application.controller.admin.ExamineeRegistrationAction">
+			<result name="success" type="tiles">examineeReg</result>
+			<result name="error">error.jsp</result>
+		</action> 
+		
+		<action name="paginateExamineeList" method="paginateExamineeList"
+			class="mm.com.gic.ces.application.controller.admin.ExamineeRegistrationAction">
+			<result name="success" type="tiles">examineeReg</result>
+		</action>
+		<!-- End, Saw Yu Nwe, ExamineeRegistration -->
+		
+		<!-- Start, Saw Yu Nwe, IntervieweeRegistration -->
+		<action name="IntervieweeRegistration" method="getExamineeList"
+			class="mm.com.gic.ces.application.controller.admin.IntervieweeRegistrationAction">
+			<result name="success" type="tiles">intervieweeReg</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="SearchExaminee" method="searchExaminee"
+			class="mm.com.gic.ces.application.controller.admin.IntervieweeRegistrationAction">
+			<result name="success" type="tiles">intervieweeReg</result>
+			<result name="error">error.jsp</result>
+		</action> 
+		
+		<action name="InsertInterviewee" method="insertIntervieweeInfo"
+			class="mm.com.gic.ces.application.controller.admin.IntervieweeRegistrationAction">
+			<result name="success" type="tiles">intervieweeReg</result>
+			<result name="error">error.jsp</result>
+		</action> 
+		
+		<action name="paginateInterviewList" method="paginateInterviewList"
+			class="mm.com.gic.ces.application.controller.admin.IntervieweeRegistrationAction">
+			<result name="success" type="tiles">intervieweeReg</result>
+		</action>
+		<!-- End, Saw Yu Nwe, IntervieweeRegistration -->
+		
+		<!-- Start,Nwe Ni Hlaing, Export Employee Info  -->
+		<action name="ExportEmployeeInfo" method="employeeList"
+			class="mm.com.gic.ces.application.controller.admin.EmployeeInfoAction">
+			<result name="employeeList" type="tiles">EmployeeInfo</result>		
+		</action>
+		<action name="exportEmployee" method="printEmployee"
+			class="mm.com.gic.ces.application.controller.admin.EmployeeInfoAction">
+			<result name="employee" type="tiles">SuccessEmployeeInfo</result>
+			<result name="error" type="tiles">SuccessEmployeeInfo</result>
+			<result name="exportExcel" type="stream">
+			    <param name="contentType">application/vnd.ms-excel</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">attachment;filename*=UTF-8''${fileName}</param>
+                <param name="bufferSize">4096</param>
+			</result>
+			
+		</action>
+		<!-- End admin, Export Employee Info -->
+		
+		<!-- Start admin, Export Examinee Info  -->
+		<action name="ExportExamineeInfo" method="examineeList"
+			class="mm.com.gic.ces.application.controller.admin.ExamineeInfoAction">
+			<result name="examineeList" type="tiles">ExamineeInfo</result>
+		</action>
+		 <action name="exportExaminee" method="printExaminee"
+			class="mm.com.gic.ces.application.controller.admin.ExamineeInfoAction">
+			<result name="examinee" type="tiles">SuccessExamineeInfo</result>
+			<result name="error" type="tiles">SuccessExamineeInfo</result>
+			<result name="exportExcel" type="stream">
+			    <param name="contentType">application/vnd.ms-excel</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">attachment;filename*=UTF-8''${fileName}</param>
+                <param name="bufferSize">4096</param>
+			</result>			
+		</action>
+		<!-- End admin, Export Examinee Info -->
+		
+		<!-- Start admin, Export Pass Examinee Info  -->
+		<action name="ExportPassExamineeInfo" method="passExamineeList"
+			class="mm.com.gic.ces.application.controller.admin.PassExamineeInfoAction">
+			<result name="passExamineeList" type="tiles">PassExamineeInfo</result>		
+		</action>
+		 <action name="exportPassExaminee" method="printPassExaminee"
+			class="mm.com.gic.ces.application.controller.admin.PassExamineeInfoAction">
+			<result name="passExaminee" type="tiles">SuccessPassExamineeInfo</result>
+			<result name="error" type="tiles">SuccessPassExamineeInfo</result>
+			<result name="exportExcel" type="stream">
+			    <param name="contentType">application/vnd.ms-excel</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">attachment;filename*=UTF-8''${fileName}</param>
+                <param name="bufferSize">4096</param>
+			</result>
+		</action>
+		<!-- End admin, Export Pass Examinee Info -->
+		
+		<!-- Start admin, Export Unemployee Info  -->
+		<action name="ExportUnemployeeInfo" method="unemployeeList"
+			class="mm.com.gic.ces.application.controller.admin.UnemployeeInfoAction">
+			<result name="unemployeeList" type="tiles">UnemployeeInfo</result>		
+		</action>
+		
+		<action name="exportUnemployee" method="printUnemployee"
+			class="mm.com.gic.ces.application.controller.admin.UnemployeeInfoAction">
+			<result name="unemployee" type="tiles">SuccessUnemployeeInfo</result>
+			<result name="error" type="tiles">SuccessUnemployeeInfo</result>
+			<result name="exportExcel" type="stream">
+			    <param name="contentType">application/vnd.ms-excel</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">attachment;filename*=UTF-8''${fileName}</param>
+                <param name="bufferSize">4096</param>
+			</result>
+		</action>
+		<!-- End,Nwe Ni Hlaing, Export Unemployee Info -->
+		
+		<!-- Start,Khin Myo Wai, AttendedApplicantDecision -->
+		<action name="AttendedApplicantSelectAction" method="CheckSelectSave"
+			class="mm.com.gic.ces.application.controller.admin.AttendedApplicantDecisionAction">
+			<result name="SUCCESS" type="tiles">AttendedApplicantDecisionView</result>
+			<result name="error">error.jsp</result>
+			</action>
+		
+		 <action name="AttendedApplicantDecision" method="AttendedApplicantList"
+			class="mm.com.gic.ces.application.controller.admin.AttendedApplicantDecisionAction">
+			<result name="AttendedApplicantList" type="tiles">AttendedApplicantDecisionView</result>
+			<result name="error">error.jsp</result>
+		</action> 
+		
+		<action name="AttendedApplicantDecisionAction" method="AttendedApplicantDecision"
+			class="mm.com.gic.ces.application.controller.admin.AttendedApplicantDecisionAction">
+			<result name="SUCCESS" type="tiles">AttendedApplicantDecisionView</result>
+			<result name="error">error.jsp</result>
+		</action>
+		<!-- End AttendedApplicantDecision -->
+		
+		<!-- Start SuccessfulApplicantDecision -->
+		
+		<action name="SuccessfulApplicantSelectAction" method="CheckSelectSave"
+			class="mm.com.gic.ces.application.controller.admin.SuccessfulApplicantDecisionAction">
+			<result name="SUCCESS" type="tiles">SuccessfulApplicantDecisionView</result>
+			<result name="error">error.jsp</result>
+			</action>
+			
+		 <action name="SuccessfulApplicantDecision" method="ExamineeList"
+			class="mm.com.gic.ces.application.controller.admin.SuccessfulApplicantDecisionAction">
+			<result name="Interviewerlist" type="tiles">SuccessfulApplicantDecisionView</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="SuccessfulApplicantAction" method="SuccessfulApplicantListAction"
+			class="mm.com.gic.ces.application.controller.admin.SuccessfulApplicantDecisionAction">
+			<result name="SUCCESS" type="tiles">SuccessfulApplicantDecisionView</result>
+			<result name="error">error.jsp</result>
+		</action> 
+		<!-- End SuccessfulApplicantDecision -->
+		
+		<!-- Start SuccessfulInterviewerDecision -->
+		<action name="SuccessfulInterviewerSelectAction" method="CheckSelectSave"
+			class="mm.com.gic.ces.application.controller.admin.SuccessfulInterviewerDecisionAction">
+			<result name="SUCCESS" type="tiles">SuccessfulInterviewerDecisionView</result>
+			<result name="error">error.jsp</result>
+			</action>
+		
+		<action name="SuccessfulInterviewerDecision" method="InterviewerList"
+			class="mm.com.gic.ces.application.controller.admin.SuccessfulInterviewerDecisionAction">
+			<result name="Interviewerlist" type="tiles">SuccessfulInterviewerDecisionView</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="SuccessfulInterviewerAction" method="SuccessfulInterviewerListAction"
+			class="mm.com.gic.ces.application.controller.admin.SuccessfulInterviewerDecisionAction">
+			<result name="SUCCESS" type="tiles">SuccessfulInterviewerDecisionView</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<!-- End ,Khin Myo Wai,SuccessfulApplicantDecision -->
+					
+	</package>
+	
+	<package name="user" namespace="/" extends="struts-default">
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+		<global-results>
+			<result name="error">pagenotfound.jsp</result>		
+		</global-results>
+
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.SQLException"></exception-mapping>
+			<exception-mapping exception="java.lang.Exception" result="error" />
+		</global-exception-mappings>
+		
+		<!--Start, Khin Myo Wai ,CV Form-->
+		<action name="Home" method="init" class="mm.com.gic.ces.application.controller.user.HomeViewAction">
+			<result name="initHomeView" type="tiles">userMenuView</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		 <action name="userRegister" method="saveApplicant"
+			class="mm.com.gic.ces.application.controller.cv.CVAction">
+			<result name="success" type="redirect">CVFormTmp</result>
+			<result name="error">error.jsp</result>
+		</action> 
+				
+		 <action name="CVFormTmp" method="CVForm" class="mm.com.gic.ces.application.controller.cv.CVAction">
+			<result name="SUCCESS" type="tiles">CV</result>
+		</action>
+		
+		<action name="checkUserDuplicateData" method="CheckUserDuplicate"
+			class="mm.com.gic.ces.application.controller.cv.CVAction">
+			      <result type="stream">
+                          <param name="contentType">text/html</param>
+                          <param name="inputName">stream</param>
+                  </result>
+		</action>
+
+		<!--Recruit Closing Page 2019/09/27 Added--> 
+		 <action name="CVForm" method="recruitFormClose" class="mm.com.gic.ces.application.controller.user.HomeViewAction">
+			<result name="recruitClose" type="tiles">recruitClose</result>
+			<result name="error">error.jsp</result>
+		</action>
+		<!--End, Khin Myo Wai,CV Form -->
+	</package>
+</struts>

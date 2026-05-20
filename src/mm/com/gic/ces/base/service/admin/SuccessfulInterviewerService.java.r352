@@ -1,0 +1,222 @@
+package mm.com.gic.ces.base.service.admin;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import mm.com.gic.ces.application.model.Applicant;
+import mm.com.gic.ces.application.model.Company;
+import mm.com.gic.ces.application.model.Interview;
+import mm.com.gic.ces.base.common.HibernateUtil;
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+public class SuccessfulInterviewerService {
+	Session session = null;
+	List<Interview> InterviewerList;
+	List<Interview> count;
+	List<Interview> Check;
+	List<Interview> UnCheck;
+	List<Interview> addendedInterviewerlisttocount;
+
+	/**
+	 * to get Interviewer list from database
+	 * 
+	 * @param no param
+	 * @return Interviewer List
+	 * @throws SQLException
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Interview> SuccessfulInterviewlist() throws SQLException {
+		session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		InterviewerList = new ArrayList<Interview>();
+		InterviewerList = session.createQuery(
+				"FROM Interview Where examinee.examinee_Check ='Y'").list();
+		session.getTransaction().commit();
+		session.close();
+		return InterviewerList;
+	}
+
+	/**
+	 * to count Successful Interviewer
+	 * 
+	 * @param no
+	 *            param
+	 * @return SuccessfulInterviewercount
+	 * @throws SQLException
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Interview> attendedInterviewerlist(int year) throws SQLException {
+		session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		addendedInterviewerlisttocount = new ArrayList<Interview>();
+		addendedInterviewerlisttocount = session.createQuery(
+				"FROM Interview Where interview_Pass ='Y' and examinee.examinee_Pass ='Y' and examinee.applicant.app_JFYear="
+						+ "" + year + "").list();
+		session.getTransaction().commit();
+		session.close();
+		return addendedInterviewerlisttocount;
+	}
+
+	/**
+	 * to search Interviewer List
+	 * 
+	 * @param JobFairYear
+	 *            ,ExamPlace,FirstCompany,SecondCompany,StartDate,EndDate,
+	 *            txtSearch(Search data from TextBox)
+	 * @return Interviewer List
+	 * @throws SQLException
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Interview> SearchInterviewer(int jfYear, String examPlace,
+			 Date sDate, Date eDate,String sExamID, String eExamID,
+			 String firstCompany, String secondCompany,
+		     int lowestIQMark, int highestIQMark
+		    ) {
+		List<Interview> interviewSearchlist = new ArrayList<Interview>();
+		session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String query;
+		StringBuilder sb=new StringBuilder("FROM Interview  WHERE  examinee.examinee_Pass='Y' AND "
+				+ "examinee.applicant.app_JFYear=:jfYear " + "AND examinee.applicant.app_ExamPlace=:examPlace");
+		
+		if (sDate != null && eDate != null) {
+			sb.append(" AND examinee.applicant.app_RegDate>=:sDate AND examinee.applicant.app_RegDate<=:eDate");
+		} else {
+			if (sDate != null) {
+				sb.append(" AND examinee.applicant.app_RegDate>=:sDate");
+			}
+			if (eDate != null) {
+				sb.append(" AND examinee.applicant.app_RegDate<=:eDate");
+			}
+		}
+		if (sExamID != null && !sExamID.trim().isEmpty() && eExamID != null
+				&& !eExamID.trim().isEmpty()) {
+			sb.append(" AND examinee.applicant.exam_ID>=:sExamID AND examinee.applicant.exam_ID<=:eExamID");
+		} else {
+			if (sExamID != null && !sExamID.trim().isEmpty()) {
+				sb.append(" AND examinee.applicant.exam_ID>=:sExamID");
+			}
+			if (eExamID != null && !eExamID.trim().isEmpty()) {
+				sb.append(" AND examinee.applicant.exam_ID<=:eExamID");
+			}
+		}
+		
+		if (firstCompany!= null && !firstCompany.trim().isEmpty()) {
+			sb.append(" AND examinee.firstCompany.com_Sname=:firstCompany");
+		}
+		if (secondCompany!= null && !secondCompany.trim().isEmpty()) {
+			sb.append( " AND examinee.secondCompany.com_Sname=:secondCompany");
+		}
+		if (lowestIQMark != 0 && highestIQMark != 0) {
+			sb.append(" AND examinee.examinee_IQmark>=:lowestIQMark AND examinee.examinee_IQmark<=:highestIQMark");
+		} else {
+			if (lowestIQMark != 0) {
+				sb.append(" AND examinee.examinee_IQmark>=:lowestIQMark");
+			}
+			if (highestIQMark != 0) {
+				sb.append( " AND examinee.examinee_IQmark>=:highestIQMark");
+			}
+		}
+		
+		query=sb.toString();
+		Query q = session.createQuery(query);
+		q.setParameter("jfYear", jfYear);
+		q.setParameter("examPlace", examPlace.trim());
+		if (sDate != null) {
+			q.setParameter("sDate", sDate);
+		}
+		if (eDate != null) {
+			q.setParameter("eDate", eDate);
+		}
+		if (sExamID != null && !sExamID.trim().isEmpty()) {
+			q.setParameter("sExamID", sExamID.trim());
+		}
+		if (eExamID != null && !eExamID.trim().isEmpty()) {
+			q.setParameter("eExamID", eExamID.trim());
+		}
+		if (firstCompany != null && !firstCompany.trim().isEmpty()) {
+		q.setParameter("firstCompany",firstCompany);
+		}
+		if (secondCompany != null && !secondCompany.trim().isEmpty()) {
+		q.setParameter("secondCompany", secondCompany);
+		}
+		if (lowestIQMark != 0) {
+			q.setParameter("lowestIQMark", lowestIQMark);
+		}
+		if (highestIQMark !=0) {
+			q.setParameter("highestIQMark", highestIQMark);
+		}
+		interviewSearchlist = q.list();
+		session.getTransaction().commit();
+		session.close();
+		return interviewSearchlist;
+	}
+
+	/**
+	 * to set interview_Check to 'Y' if CheckBox is checked and 'N' if CheckBox
+	 * is unchecked
+	 * 
+	 * @param Interviewer
+	 *            List ,CheckList
+	 * @return
+	 * @throws SQLException
+	 */
+	@SuppressWarnings("unchecked")
+	public void checkListUpdate(List<String> checkedIDList) {
+		
+		session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		try {
+			String query = "FROM Interview WHERE examinee.applicant.exam_ID IN (:checkedIDList)";
+			Query q = session.createQuery(query);
+			q.setParameterList("checkedIDList", checkedIDList);
+			List<Interview> Check = new ArrayList<Interview>();
+			Check = q.list();
+			for (Interview e : Check) {
+				e.setInterview_Pass("Y");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		session.getTransaction().commit();
+		session.close();
+	}
+
+	/**
+	 * to set interview_Check to 'N' when List is null
+	 * 
+	 * @param Interviewer
+	 *            List
+	 * @return
+	 * @throws SQLException
+	 */
+	@SuppressWarnings("unchecked")
+	public void checkListNullUpdate(List<Interview> searchInterviewerlist) {
+
+		String checkedIDList = null;
+		for (int i = 0; i < searchInterviewerlist.size(); i++) {
+
+			checkedIDList = searchInterviewerlist.get(i).getExaminee().getApplicant()
+					.getExam_ID();
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			try {
+				String query = "FROM Interview WHERE examinee.applicant.exam_ID IN (:checkedIDList)";
+				Query q = session.createQuery(query);
+				q.setParameter("checkedIDList", checkedIDList);
+				List<Interview> Check = new ArrayList<Interview>();
+				Check = q.list();
+				for (Interview e : Check) {
+					e.setInterview_Pass("N");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			session.getTransaction().commit();
+			session.close();
+		}
+	}
+
+}

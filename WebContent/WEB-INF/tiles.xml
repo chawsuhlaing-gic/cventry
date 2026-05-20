@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+   "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+   "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+	<definition name="baseTemplateUser" template="/views/BaseTemplateUser.jsp">
+		<put-attribute name="title" value="CV Entry System" />
+		<put-attribute name="header" value="/views/UserHeader.jsp" />
+		<put-attribute name="body" value="/body.jsp" />
+		<put-attribute name="footer" value="/footer.jsp" />
+	</definition>
+	<definition name="baseTemplateAdmin" template="/views/BaseTemplateAdmin.jsp">
+		<put-attribute name="title" value="CV Entry System" />
+		<put-attribute name="header" value="/views/AdminHeader.jsp" />
+		<put-attribute name="body" value="/body.jsp" />
+		<put-attribute name="footer" value="/views/Footer.jsp" />
+	</definition>
+	
+	<!--START, index , home view -->
+	<definition name="userMenuView" extends="baseTemplateUser">
+		<put-attribute name="title" value="CV Entry System" />
+		<put-attribute name="body" value="/views/Index.jsp" />
+		<put-attribute name="footer" value="/views/DumpFooter.jsp" />
+	</definition>	
+	<!--END, index , home view -->	
+	
+	<!--START, Jar Moon Taung , Registration -->
+	<definition name="registerMangement" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="履歴書情報一覧" />
+		<put-attribute name="body" value="/views/RegisterManagement.jsp" />
+	</definition>
+	<definition name="landingPage" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="ホームページ設定" />
+		<put-attribute name="body" value="/views/HomePageEdit.jsp" />
+	</definition>
+	<definition name="applicantCV" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="履歴書情報新規登録" />
+		<put-attribute name="body" value="/views/AddEditCV.jsp" />
+	</definition>
+	<definition name="applicantRemove" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="履歴書削除情報一覧" />
+		<put-attribute name="body" value="/views/ShowlstAppRemove.jsp" />
+	</definition>
+	<!--END, Jar Moon Taung , Registration view -->	
+	
+	<!--START, Cho Cho Lwin, exam card -->
+	<definition name="examCardView" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="受験番号出力" />
+		<put-attribute name="body" value="/views/ExamCardView.jsp" />
+	</definition>
+	<!--END, Cho Cho Lwin, exam card -->
+	
+	<!--START, Cho Cho Lwin, role setting -->
+	<definition name="roleSetting" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="権限設定" />
+		<put-attribute name="body" value="/views/RoleSetting.jsp" />
+	</definition>
+	<!--END, Cho Cho Lwin, role setting -->
+	
+	
+	<!--  START, Thet Ngon Tun,Export CV-->
+	<definition name="getApplicantList" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="履歴書出力" />
+		<put-attribute name="body" value="/views/ExportCV.jsp" />
+	</definition>
+
+	<definition name="exportCV" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="履歴書出力" />
+		<put-attribute name="body" value="/views/ExportCV.jsp" />
+	</definition>
+	<!-- Export CV -->
+	
+	<!--START, Saw Yu Nwe,IntervieweeRegistration -->
+	<definition name="intervieweeReg" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="会社別合格者情報登録" />
+		<put-attribute name="body" value="/views/IntervieweeRegistration.jsp" />
+	</definition>
+	<!--END, IntervieweeRegistration -->
+	
+	<!--START, Saw Yu Nwe, CompanyRegistration -->
+	<definition name="companyReg" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="顧客情報登録" />
+		<put-attribute name="body" value="/views/CompanyRegistration.jsp" />
+	</definition>
+	<!--END, CompanyRegistration -->
+	
+	<!--START, ExamineeRegistration -->
+	<definition name="examineeReg" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="受験者情報登録" />
+		<put-attribute name="body" value="/views/ExamineeRegistration.jsp" />
+	</definition>
+	<!--END, Saw Yu Nwe,ExamineeRegistration -->
+	
+	<!--START,Aye Chan Moe ,Mail -->	
+	<definition name="sendMail" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="メール送信" />
+		<put-attribute name="body" value="/views/MailSendView.jsp" />
+	</definition>
+	<!--END,Aye Chan Moe ,Mail -->
+	
+	<!-- Start, Nwe Ni Hlaing, Export Employee Info  -->
+	<definition name="EmployeeInfo" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="会社別採用情報照会" />
+		<put-attribute name="body" value="/views/ExportEmployeeInfo.jsp" />
+	</definition>
+	<definition name="SuccessEmployeeInfo" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="会社別採用情報照会" />
+		<put-attribute name="body" value="/views/ExportEmployeeInfo.jsp" />
+	</definition>
+	<!-- End admin, Export Employee Info  -->
+	
+	<!-- Start admin, Export Examinee Info  -->
+	<definition name="ExamineeInfo" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="会社別受験者情報照会" />
+		<put-attribute name="body" value="/views/ExportExamineeInfo.jsp" />
+	</definition>
+	<definition name="SuccessExamineeInfo" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="会社別受験者情報照会" />
+		<put-attribute name="body" value="/views/ExportExamineeInfo.jsp" />
+	</definition>
+	<!-- End admin, Export Examinee Info  -->
+	
+	<!-- Start admin, Export Pass Examinee Info  -->
+	<definition name="PassExamineeInfo" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="会社別合格者照会" />
+		<put-attribute name="body" value="/views/ExportPassExamineeInfo.jsp" />
+	</definition>	
+	<definition name="SuccessPassExamineeInfo" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="会社別合格者照会" />
+		<put-attribute name="body" value="/views/ExportPassExamineeInfo.jsp" />
+	</definition>
+	<!-- End admin, Export Pass Examinee Info  -->
+	
+	<!-- Start admin, Export Unemployee Info  -->
+	<definition name="UnemployeeInfo" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="会社別不採用応募者情報照会" />
+		<put-attribute name="body" value="/views/ExportUnemployeeInfo.jsp" />
+	</definition>
+	<definition name="SuccessUnemployeeInfo" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="会社別不採用応募者情報照会" />
+		<put-attribute name="body" value="/views/ExportUnemployeeInfo.jsp" />
+	</definition>
+	<!-- End ,Nwe Ni Hlaing, Export Unemployee Info  -->
+	
+	<!--START,Chaw Phyu Phyu, AttendedApplicantDecision -->
+	<definition name="AttendedApplicantDecisionView" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="受験者決定" />
+		<put-attribute name="body" value="/views/AttendedApplicantDecision.jsp" />
+	</definition>
+	<!--END, AttendedApplicantDecision -->
+	
+	<!--START, SuccessfulApplicantDecision -->
+	<definition name="SuccessfulApplicantDecisionView" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="会社別合格者決定" />
+		<put-attribute name="body" value="/views/SuccessfulApplicantDecision.jsp" />
+	</definition>
+	<!--END, SuccessfulApplicantDecision  -->
+	
+	<!--START, SuccessfulInterviewerDecision -->
+	<definition name="SuccessfulInterviewerDecisionView" extends="baseTemplateAdmin">
+		<put-attribute name="title" value="会社別採用者決定" />
+		<put-attribute name="body" value="/views/SuccessfulInterviewerDecision.jsp" />
+	</definition>
+	<!--END, Chaw Phyu Phyu,SuccessfulInterviewerDecision  -->
+	
+	
+	<!--START, User , Khin Myo Wai Registration -->
+	
+	<definition name="CV" extends="baseTemplateUser">
+		<put-attribute name="title" value="CV Form" />
+		<put-attribute name="body" value="/views/CV.jsp" />
+		<put-attribute name="footer" value="/views/Footer.jsp" />
+	</definition>
+	
+	<definition name="RegSuccess" extends="baseTemplateUser">
+		<put-attribute name="title" value="CV Form" />
+		<put-attribute name="body" value="/views/CV.jsp" />
+		<put-attribute name="footer" value="/views/Footer.jsp" />
+	</definition>
+	
+	<definition name="recruitClose" extends="baseTemplateUser">
+		<put-attribute name="title" value="CV Entry System" />
+		<put-attribute name="body" value="/views/RecruitClose.jsp" />
+		<put-attribute name="footer" value="/views/Footer.jsp" />
+	</definition>
+	
+	
+	<!--End, User , Khin Myo Wai  Registration -->
+		
+</tiles-definitions>

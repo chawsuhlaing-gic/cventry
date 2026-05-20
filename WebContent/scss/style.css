@@ -1,0 +1,10 @@
+.table-cont{
+  /**make table can scroll**/
+  max-height: 200px;
+  overflow: auto;
+  background: #ddd;
+  margin: 20px 10px;
+  box-shadow: 0 0 1px 3px #ddd;
+}
+
+
